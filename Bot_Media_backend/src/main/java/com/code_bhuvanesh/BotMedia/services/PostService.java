@@ -71,6 +71,7 @@ public class PostService {
             }
 
             postRepository.save(post);
+            return post;
 
         }
         catch (IOException exception){

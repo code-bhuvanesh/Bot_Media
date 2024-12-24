@@ -12,7 +12,6 @@ import com.code_bhuvanesh.BotMedia.dtos.PostUploadDto;
 import com.code_bhuvanesh.BotMedia.services.PostService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -20,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -44,7 +42,6 @@ public class PostController {
 
     @PostMapping("/upload")
     public ResponseEntity<PostUploadResponse> uploadPost(@ModelAttribute PostUploadDto postUploadDto, @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader){
-        System.out.println("asdsadsadjlasdasjkdlsajldkasjkl");
         String token = authorizationHeader.substring(7);
         Post post = postService.savePost(postUploadDto, token);
         if(post == null){
@@ -67,8 +64,8 @@ public class PostController {
             newPostResponse.setId(p.getId());
             newPostResponse.setPostContent(p.getPostContent());
             newPostResponse.setFileUrl(currentUrl + "image/" + p.getPostFileName());
-
-            User postPublisher = userRepository.getReferenceById(p.getId());
+            System.out.println(p.getUser());
+            User postPublisher = p.getUser();
             newPostResponse.setUserid(p.getId());
             newPostResponse.setUsername(postPublisher.getUsername());
 

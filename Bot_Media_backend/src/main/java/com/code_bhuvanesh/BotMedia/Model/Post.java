@@ -9,7 +9,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generates the ID
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userid", referencedColumnName = "id", nullable = false)
     private User userid;
 
@@ -37,7 +37,7 @@ public class Post {
         this.id = id;
     }
 
-    public User getUserid() {
+    public User getUser() {
         return userid;
     }
 
